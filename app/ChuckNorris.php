@@ -12,6 +12,7 @@ class ChuckNorris {
             'random'   => 'random',
             'words'    => 'search?query=',
             'category' => 'random?category=',
+            'categories' => 'categories',
         );
 
         $response = Http::get($api_url.$method2url[$endpoint].$data);
@@ -21,6 +22,6 @@ class ChuckNorris {
         );
 
         if(isset($response->json()['result'])) return $response->json()['result'];
-        else return  SearchResource::collection(array($response->json()));
+        else return array($response->json());
     }
 }

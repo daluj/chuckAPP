@@ -9,11 +9,37 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\URL;
 use App\Http\Resources\Search as SearchResource;
+use App\Mail\MyMail;
 use App\Models\Search as ModelsSearch;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class Search extends Controller
 {
+
+    public function chuck(Request $request) {
+        $action = $request->input('action');
+        if(!$action) $action = $request->action;
+        switch ($action) {
+            case 'random':
+                return $this->random($request);
+                break;
+
+            case 'words':
+                return $this->words($request);
+                break;
+
+            case 'category':
+                return $this->categories($request);
+                break;
+        }
+    }
+
+    public static function getCategories()
+    {
+        $response = ChuckNorris::callApi('categories');
+        return $response;
+    }
 
     public function random(Request $request) {
         $response = ChuckNorris::callApi('random');
@@ -21,49 +47,59 @@ class Search extends Controller
             'path' => $request->path(),
         );
         $this->saveSearch($save);
-        return $this->saveAndShow($response);
+        return $this->saveAndShow($request,$response);
     }
 
-    public function words(Request $request,$word) {
+    public function words(Request $request) {
+        $word = $request->word;
+        $url = URL::current();
         $response = ChuckNorris::callApi('words',$word);
         $save = array(
             'path' => $request->path(),
             'keyword' => $word
         );
         $this->saveSearch($save);
-        return $this->saveAndShow($response);
+        return $this->saveAndShow($request,$response);
     }
 
-    public function categories(Request $request,$category) {
+    public function categories(Request $request) {
+        $category = $request->category;
         $response = ChuckNorris::callApi('category',$category);
         $save = array(
             'path' => $request->path(),
             'keyword' => $category
         );
         $this->saveSearch($save);
-        return $this->saveAndShow($response);
+        return $this->saveAndShow($request,$response);
     }
 
     private function saveSearch($data) {
         ModelsSearch::insert($data);
     }
 
-    private function saveAndShow($response) {
+    private function saveAndShow($request, $response) {
         // Check if there has been any errors
         if(!empty($response['error'])) {
-            return $response['error']['message'];
+            return view('errors.chuck',['description' => $response['error']['message']]);
+            //return $response['error']['message'];
         }
 
         $collection = collect(SearchResource::collection($response));
 
-        //Save on database
+        // Save on database
         Result::insert($collection->toArray());
 
         // Paginate the data
         $data = $this->paginate($collection);
 
+        // Check if we want to send an email with the results
+        $email = $request->email;
+        if($email) {
+            $this->sendEmail($email);
+        }
+
         // Show results on view
-        $data->withPath(URL::current());
+        $data->withPath($request->fullUrl());
         return view('chuck',compact('data'));
     }
 
@@ -74,4 +110,12 @@ class Search extends Controller
         return new LengthAwarePaginator($items->forPage($page,$perpage),$items->count(),$perpage,$page,$options);
     }
 
+    private function sendEmail($email) {
+        $details = [
+            'title' => 'Mail from Chuck Norris',
+            'body' => 'This is for testing email using smtp'
+        ];
+
+        Mail::to($email)->send(new MyMail($details));
+    }
 }

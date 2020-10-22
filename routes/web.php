@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Search;
+use App\Models\Search as ModelsSearch;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $data = Search::getCategories();
+    return view('home',['categories' => $data[0]]);
 });
 
-Route::get('random', [Search::class,'random']);
-Route::get('words/{word}', [Search::class,'words']);
-Route::get('categories/{category}', [Search::class,'categories']);
+/*Route::get('/home', function () {
+    $data = Search::getCategories();
+    return view('home',['categories' => $data[0]]);
+});*/
+
+Route::get('chuck', [Search::class,'chuck'])->name('chuck');
+Route::get('chuck/categories', [Search::class,'getCategories']);

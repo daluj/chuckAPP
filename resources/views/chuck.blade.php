@@ -1,13 +1,12 @@
-<div class="container">
-    <table class="table table-bordered">
-        <tr>
-            <th>Fact</th>
-        </tr>
-        @foreach($data as $post)
-        <tr>
-            <td>{{ $post['fact'] }}</td>
-        </tr>
-        @endforeach
-    </table>
-    {{ $data->links() }}
-</div>
+@extends('layouts.app')
+
+@section('content')
+    @foreach ($data as $d)
+        <div class="panel panel-default fact">
+            <div class="panel-body">
+                <div>- {{ $d['fact'] }}</div>
+            </div>
+        </div>
+    @endforeach
+    {{  $data->links() }}
+@endsection
