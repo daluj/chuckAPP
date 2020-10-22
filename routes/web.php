@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Search;
 use App\Models\Search as ModelsSearch;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,15 +16,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     $data = Search::getCategories();
     return view('home',['categories' => $data[0]]);
 });
 
-/*Route::get('/home', function () {
-    $data = Search::getCategories();
-    return view('home',['categories' => $data[0]]);
-});*/
+Route::get('/chuck', [Search::class,'chuck'])->name('chuck');
+Route::get('/chuck/categories', [Search::class,'getCategories']);*/
 
-Route::get('chuck', [Search::class,'chuck'])->name('chuck');
-Route::get('chuck/categories', [Search::class,'getCategories']);
+Route::get('/', function () {
+    return redirect(app()->getLocale());
+});
+
+Route::group(['prefix' => '{locale}','middleware' => 'setlocale'], function() {
+    Route::get('/', function () {
+        $data = Search::getCategories();
+        return view('home',['categories' => $data[0]]);
+    });
+
+    Route::get('/chuck', [Search::class,'chuck'])->name('chuck');
+    Route::get('/chuck/categories', [Search::class,'getCategories']);
+
+});
