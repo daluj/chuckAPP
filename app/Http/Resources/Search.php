@@ -15,9 +15,9 @@ class Search extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'    => $this->resource['id'],
+            'code'  => $this->resource['id'],
             'url'   => $this->resource['url'],
-            'value' => $this->resource['value']
+            'fact'  => $this->resource['value']
         ];
     }
 }

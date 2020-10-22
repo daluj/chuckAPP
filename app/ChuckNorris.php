@@ -10,16 +10,17 @@ class ChuckNorris {
         $api_url = "https://api.chucknorris.io/jokes/";
         $method2url = array(
             'random'   => 'random',
-            'words'    => 'search?',
+            'words'    => 'search?query=',
             'category' => 'random?category=',
         );
 
         $response = Http::get($api_url.$method2url[$endpoint].$data);
-        if($response->status() != 200) return false;
 
-        if(isset($response->json()['result'])) return SearchResource::collection($response->json()['result']);
+        if($response->status() != 200) return array(
+            'error' => $response->json()
+        );
 
-        return new SearchResource($response->json());
-
+        if(isset($response->json()['result'])) return $response->json()['result'];
+        else return  SearchResource::collection(array($response->json()));
     }
 }
