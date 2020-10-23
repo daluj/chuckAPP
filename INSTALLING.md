@@ -24,7 +24,7 @@ $ php artisan migrate
 $ php artisan serve
 ```
 
-Check the server is running on localhost:8080.
+Check the server is running on http://localhost:8001.
 
 (or you can use Laravel/Homestead or XAMPP as development environments)
 
