@@ -15,5 +15,6 @@ return
         'email_title'   => 'Mail from Chuck Norris',
         'email_body'   => 'Check your results in the following link: ',
         'email_results'   => 'Results',
+        'email_success'   => 'Email sent, Chuck Norris is in your inbox',
     ];
 ?>

@@ -97,7 +97,7 @@ class Search extends Controller
 
         if($email) {
             $this->sendEmail($request,$email);
-            return "Email sent, please check your inbox";
+            return __('lang.email_success');
         }
 
         // Show results on view
