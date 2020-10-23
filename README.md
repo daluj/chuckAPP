@@ -10,6 +10,13 @@ You can:
 - Search a Chuck joke by category
 - Search a Chuck joke using a query
 
+## Results
+English UI:
+![alt text](results/en.png)
+
+Spanish UI:
+![alt text](results/es.png)
+
 ## Installing
 
 Check the [installation doc](INSTALLING.md) section

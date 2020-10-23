@@ -14,7 +14,7 @@
 <div class="wrapper">
     <header>
         <h1>
-            Chuck Norris Facts
+            Chuck Norris {{ __('lang.header')}}
         </h1>
         <a href="/es"><img style = "width: 5%" src="{{asset('assets/images/es.png')}}"></a>
         <a href="/en"><img style = "width: 5%" src="{{asset('assets/images/en.png')}}"></a>

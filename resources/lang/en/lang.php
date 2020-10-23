@@ -9,6 +9,7 @@ return
         'email_placeholder'   => 'Introduce email (Optional)',
         'random'   => 'Random',
         'usage'   => 'Usage',
+        'header'   => 'Facts',
         'search_placeholder'   => 'Search introducing a word',
         'select_category'   => '--- Select Category ---',
     ];
