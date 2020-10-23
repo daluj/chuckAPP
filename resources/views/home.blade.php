@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
 
     <title>Chuck</title>
@@ -9,14 +9,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link href="https://api.chucknorris.io/css/styles.css" rel="stylesheet" type="text/css"/>
-
-    </head>
+</head>
 <body>
 <div class="wrapper">
     <header>
         <h1>
             Chuck Norris Facts
         </h1>
+        <a href="/es"><img style = "width: 5%" src="{{asset('assets/images/es.png')}}"></a>
+        <a href="/en"><img style = "width: 5%" src="{{asset('assets/images/en.png')}}"></a>
     </header>
     <div id="content">
     <section>

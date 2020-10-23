@@ -9,7 +9,7 @@ return
         'email_placeholder'   => 'Introduce tu email (Opcional)',
         'random'   => 'Aleatorio',
         'usage'   => 'Uso',
-        'search_placeholder'   => 'Busqueda por palabra',
+        'search_placeholder'   => 'Busca por palabra',
         'select_category'   => '--- Selecciona categoria ---',
     ];
 ?>
