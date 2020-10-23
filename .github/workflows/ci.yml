@@ -42,6 +42,8 @@ jobs:
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
+    - name: Generate key
+      run: php artisan key:generate
     - name: Migrate & Populate database
       env:
         DB_CONNECTION: mysql
