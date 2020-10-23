@@ -94,8 +94,10 @@ class Search extends Controller
 
         // Check if we want to send an email with the results
         $email = $request->email;
+
         if($email) {
-            $this->sendEmail($email);
+            $this->sendEmail($request,$email);
+            return "Email sent, please check your inbox";
         }
 
         // Show results on view
@@ -110,10 +112,14 @@ class Search extends Controller
         return new LengthAwarePaginator($items->forPage($page,$perpage),$items->count(),$perpage,$page,$options);
     }
 
-    private function sendEmail($email) {
+    private function sendEmail($request, $email) {
+        $url = $request->url();
+        $query = $request->query();
+        if(isset($query['email'])) unset($query['email']);
+
+
         $details = [
-            'title' => 'Mail from Chuck Norris',
-            'body' => 'This is for testing email using smtp'
+            'url'  => $url.'?'.http_build_query($query)
         ];
 
         Mail::to($email)->send(new MyMail($details));

@@ -12,5 +12,8 @@ return
         'header'   => 'Facts',
         'search_placeholder'   => 'Search introducing a word',
         'select_category'   => '--- Select Category ---',
+        'email_title'   => 'Mail from Chuck Norris',
+        'email_body'   => 'Check your results in the following link: ',
+        'email_results'   => 'Results',
     ];
 ?>

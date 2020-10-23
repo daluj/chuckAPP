@@ -12,5 +12,8 @@ return
         'header'   => 'Chistes',
         'search_placeholder'   => 'Busca por palabra',
         'select_category'   => '--- Selecciona categoria ---',
+        'email_title'   => 'Email de Chuck Norris',
+        'email_body'   => 'Mira los resultados en el siguiente link: ',
+        'email_results'   => 'Resultados',
     ];
 ?>
