@@ -7,15 +7,20 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicTest()
-    {
+    public function testRedirectEnglish() {
         $response = $this->get('/');
+        $response->assertRedirect('/en');
+    }
 
-        $response->assertStatus(302);
+    public function testUserSeesMainEnglish() {
+        $response = $this->get('/en');
+        $response->assertSee('Chuck Norris Facts');
+        $response->assertViewIs('home');
+    }
+
+    public function testUserSeesMainSpanish() {
+        $response = $this->get('/es');
+        $response->assertSee('Chuck Norris Chistes');
+        $response->assertViewIs('home');
     }
 }
