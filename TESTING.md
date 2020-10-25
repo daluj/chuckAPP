@@ -13,6 +13,17 @@ $ php artisan migrate:refresh
 $ vendor/bin/phpunit
 ```
 
+## Installation via Docker
+1. Migrate database tables:
+```
+$ docker-compose exec app php artisan migrate
+```
+
+2. Run phpunit:
+```
+$ docker-compose exec app vendor/bin/phpunit
+```
+
 ## Installation via Laravel/Homestead
 If the installation was done using homestead, you will have to do the following (make sure you are on the project folder):
 - Connect to the virtual machine: 

@@ -28,6 +28,29 @@ Check the server is running on http://localhost:8001.
 
 (or you can use Laravel/Homestead or XAMPP as development environments)
 
+## Installation with Docker
+```
+$ docker-compose build app
+```
+
+```
+$ docker-compose up -d
+```
+
+```
+$ docker-compose exec app composer install
+```
+
+```
+$ docker-compose exec app php artisan key:generate
+```
+
+```
+$ docker-compose exec app php artisan migrate
+```
+
+Check your http://localhost and make sure it is running 
+
 ## Installation with Laravel/Homestead (recommended)
 In order to set up the development environment in your local machine, [Laravel/Homestead](https://laravel.com/docs/8.x/homestead) provides a wonderful development environment without requiring to install PHP, a web server, and any other server software on your local machine. 
 
